@@ -90,18 +90,16 @@ const Head = () => {
         }`}
         style={{ zIndex: 50 }}
       >
-        <a href="#" className="text-black text-lg">
-          Home Page
-        </a>
-        <a href="#" className="text-black text-lg">
-          Categories
-        </a>
-        <a href="#" className="text-black text-lg">
-          Contact Us
-        </a>
-        <a href="#" className="text-black text-lg flex items-center">
+        <Link to="/">
+          <p>Home Page</p>
+        </Link>
+        <Link to="/shop">
+          <p>Categories</p>
+        </Link>
+        <p className=" cursor-pointer">Contact Us</p>
+        <p className=" flex items-center cursor-pointer">
           More Options <MdKeyboardArrowDown className="h-6 w-6" />
-        </a>
+        </p>
       </div>
     </nav>
   );
