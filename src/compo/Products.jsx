@@ -1,23 +1,21 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { FaShoppingCart, FaStarHalfAlt, FaTimes } from "react-icons/fa";
+import {
+  FaShoppingCart,
+  FaTimes,
+  FaStarHalfAlt,
+  FaPlus,
+  FaMinus,
+} from "react-icons/fa";
 import { FaRegStar, FaStar } from "react-icons/fa6";
-import { useDispatch, useSelector } from "react-redux";
-import { add, remove } from "../redux/Slices/CartSlice";
+
+import Product from "./Product";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const { cart } = useSelector((state) => state);
-  const dispatch = useDispatch();
-
-  const addToCart = () => {
-    dispatch(add(product));
-  };
-  const removeFromCart = () => {
-    dispatch(remove(post.id));
-  };
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products?limit=8")
@@ -53,52 +51,62 @@ const Products = () => {
       <h2 className="text-2xl font-bold mb-6">Explore Our Products</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
         {products.map((product) => (
-          <div
-            key={product.id}
-            className="border p-4 rounded shadow cursor-pointer flex flex-col justify-between"
-            onClick={() => openModal(product.id)}
-          >
-            <img
-              src={product.image}
-              alt={product.title}
-              className="w-full h-40 object-contain"
-            />
-            <h3 className="mt-2 font-bold">{product.title}</h3>
-            <div className="flex items-center mt-1">
-              <p className="text-gray-500 mr-2">${product.price}</p>
-              {renderStars(Math.round(product.rating?.rate))}
-              {`(${product.rating?.count})`}
-            </div>
-            <button
-              className="mt-2 bg-black text-white px-4 py-2 w-full"
-              onClick={addToCart}
-            >
-              Add To Cart
-            </button>
-          </div>
+          <Product product={product} key={product.id} openModal={openModal} />
         ))}
       </div>
 
       {modalOpen && selectedProduct && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold">{selectedProduct.title}</h2>
-              <FaTimes
-                className="cursor-pointer"
-                onClick={() => setModalOpen(false)}
-              />
-            </div>
-            <img
-              src={selectedProduct.image}
-              alt={selectedProduct.title}
-              className="w-full h-60 object-contain mb-4"
-            />
-            <p className="text-gray-600">{selectedProduct.description}</p>
-            <p className="text-lg font-bold mt-2">${selectedProduct.price}</p>
-            <button className="mt-4 bg-black text-white px-4 py-2 w-full flex items-center justify-center gap-2">
-              <FaShoppingCart /> Add To Cart
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-2xl w-full relative">
+            <button
+              className="absolute top-3 right-3 text-gray-500"
+              onClick={() => setModalOpen(false)}
+            >
+              <FaTimes size={20} />
             </button>
+            <div className="flex flex-col md:flex-row gap-4">
+              <img
+                src={selectedProduct.image}
+                alt={selectedProduct.title}
+                className="w-full md:w-1/2 h-60 object-contain"
+              />
+              <div className="flex flex-col justify-between flex-1">
+                <h2 className="text-xl font-bold">{selectedProduct.title}</h2>
+                <div className="flex items-center gap-2">
+                  {renderStars(selectedProduct.rating?.rate)}
+                  <span className="text-gray-500 text-sm">
+                    ({selectedProduct.rating?.count} Reviews)
+                  </span>
+                  <span className="text-green-500 font-medium">In Stock</span>
+                </div>
+                <p className="text-lg font-bold">${selectedProduct.price}</p>
+                <p className="text-gray-600 text-sm">
+                  {selectedProduct.description}
+                </p>
+                <div className="flex items-center gap-4 mt-4">
+                  <div className="flex items-center border rounded-lg">
+                    <button
+                      className="px-3 py-2 bg-gray-200 hover:bg-gray-300"
+                      onClick={() =>
+                        setQuantity((prev) => Math.max(1, prev - 1))
+                      }
+                    >
+                      <FaMinus />
+                    </button>
+                    <span className="px-4 py-2">{quantity}</span>
+                    <button
+                      className="px-3 py-2 bg-gray-200 hover:bg-gray-300"
+                      onClick={() => setQuantity((prev) => prev + 1)}
+                    >
+                      <FaPlus />
+                    </button>
+                  </div>
+                  <button className="bg-yellow-500 text-white px-6 py-2 rounded-lg flex items-center gap-2">
+                    <FaShoppingCart /> Buy Now
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}
