@@ -4,6 +4,7 @@ import { CiSearch } from "react-icons/ci";
 import { FaCartShopping } from "react-icons/fa6";
 import { IoPerson } from "react-icons/io5";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Head = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -13,7 +14,9 @@ const Head = () => {
   return (
     <nav className="bg-yellow-400 flex items-center justify-between px-6 md:px-10 py-4 relative">
       {/* Logo */}
-      <h1 className="text-black font-bold text-lg">Harmoni</h1>
+      <Link to="/">
+        <h1 className="text-black font-bold text-lg">Harmoni</h1>
+      </Link>
 
       {/* Mobile Menu Button */}
       <button
@@ -27,10 +30,14 @@ const Head = () => {
       <div className="hidden md:flex gap-5 items-center">
         {/* Navigation Links */}
         <div className="hidden md:flex space-x-5 text-black">
-          <a href="#">Home Page</a>
-          <a href="#">Categories</a>
+          <Link to="/">
+            <a href="#">Home Page</a>
+          </Link>
+          <Link to="/shop">
+            <a href="#">Categories</a>
+          </Link>
           <a href="#">Contact Us</a>
-          <a href="#" className="hover:underline flex items-center">
+          <a href="#" className=" flex items-center">
             More Options <MdKeyboardArrowDown className="h-6 w-6" />
           </a>
         </div>

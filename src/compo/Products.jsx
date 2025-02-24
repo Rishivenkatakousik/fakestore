@@ -48,7 +48,7 @@ const Products = () => {
 
   return (
     <div className="p-8 w-[80%] mx-auto ">
-      <h2 className="text-2xl font-bold mb-6">Explore Our Products</h2>
+      <h2 className="text-2xl font-bold mb-6">Featured Products</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
         {products.map((product) => (
           <Product product={product} key={product.id} openModal={openModal} />

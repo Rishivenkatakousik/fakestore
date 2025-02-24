@@ -1,17 +1,18 @@
-import Footer from "./compo/Footer";
+import { Route, Routes } from "react-router-dom";
 import Head from "./compo/Head";
-import Hero from "./compo/Hero";
-import Products from "./compo/Products";
-import Services from "./compo/Services";
+import Home from "./pages/Home";
+import Shop from "./pages/Shop";
 
 export default function App() {
   return (
-    <div className="flex flex-col overflow-hidden bg-white">
-      <Head />
-      <Hero />
-      <Products />
-      <Services />
-      <Footer />
+    <div>
+      <div className=" bg-slate-900">
+        <Head />
+      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/shop" element={<Shop />} />
+      </Routes>
     </div>
   );
 }

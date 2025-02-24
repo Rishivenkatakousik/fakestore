@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -37,9 +38,11 @@ const Hero = () => {
           just for you.
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
-          <button className="bg-white text-black px-6 py-3 rounded-xl font-medium">
-            Shop
-          </button>
+          <Link to={"/shop"}>
+            <button className="bg-white text-black px-6 py-3 rounded-xl font-medium">
+              Shop
+            </button>
+          </Link>
           <button className="bg-black text-white px-6 py-3 rounded-xl border border-white font-medium">
             Learn More
           </button>
