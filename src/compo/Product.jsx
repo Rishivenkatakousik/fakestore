@@ -30,7 +30,7 @@ const Product = ({ product, openModal }) => {
   return (
     <div
       key={product.id}
-      className="border p-4 rounded shadow cursor-pointer flex flex-col justify-between"
+      className="border p-4 rounded shadow cursor-pointer flex flex-col justify-between h-[350px]"
     >
       <img
         src={product.image}
